@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<hmtl lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+    <title>PESQUISA DE SATISFAÇÃO</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+
+<body>
+    <main class="page-sell">
+        <section class="survey-card" aria-live="polite">
+            <div class="brand-area brand-top" aria-label="Logo da Loja">
+                <img
+                src="{{ url_for('static', path='img/logo.png') }}"
+                alt="Logo da loja"
+                onerror="this.style.display='none'"
+                >
+            </div>
+
+            <div id="survey-screen" class="screen screen-active">
+                <div class="watermark" aria-hidden="true">
+                    <img
+                        src="{{ url_for('static', path='img/logo.png') }}"
+                        alt=""
+                        onerror="this.style.display='none'"
+                    >
+                </div>
+
+                <h1>Como foi sua experiência?</h1>
+                <p class="subtitle">Selecione uma das opções abaixo:</p>
+
+                <form id="satisfaction-form">
+                    <div class="options" role="radiogroup" aria-label="Avaliação de Experiência">
+                        <label class="option-card">
+                            <input type="radio" name="answer" value="ruim">
+                            <span class="emoji" aria-hidden="true">😞</span>
+                            <span>Ruim</span>
+                        </label>
+
+                        <label class="option-card">
+                            <input type="radio" name="answer" value="bom">
+                            <span class="emoji" aria-hidden="true">🙂</span>
+                            <span>Bom</span>
+                        </label>
+
+                        <label class="option-card">
+                            <input type="radio" name="answer" value="otimo">
+                            <span class="emoji" aria-hidden="true">🤩</span>
+                            <span>Ótimo</span>
+                        </label>
+                    </div>
+
+                    <button id="submit-button" class="submit" type="submit" disabled>
+                        Enviar Resposta
+                    </button>
+                </form>
+
+                <p id="error-message" class="error-message" role="alert"></p>
+            </div>
+
+            <div id="thank-you-screen" class="screen" hidden>
+                <div class="thank-you-icon" aria-hidden="true">💚🤍🧡</div>
+                <h1>Obrigado pela sua resposta!</h1>
+                <p class="subtitle">Sua opnião é muito importante para nós.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', path='js/app.js') }}"></script>
+</body>
