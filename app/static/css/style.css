@@ -31,7 +31,7 @@ body {
     padding: 40px 28px;
     border-radius: 24px;
     background: #ffffff;
-    box-shadow: 0 18px 20px rgb(22 42 70 / 14%);
+    box-shadow: 0 18px 50px rgb(22 42 70 / 14%);
     text-align: center;
 }
 
@@ -40,15 +40,15 @@ body {
     z-index: 1;
 }
 
-.brande-area {
+.brand-area {
     min-height: 56px;
     display: grid;
-    place-items: center
+    place-items: center;
 }
 
-.brande-area img {
+.brand-area img {
     max-width: 180px;
-    max-height: 55px;
+    max-height: 90px;
     object-fit: contain;
 }
 
@@ -65,37 +65,78 @@ h1 {
 
 .options {
     display: grid;
-    grid-template-columns: repeat(3, 1f);
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
     max-width: 520px;
     margin: 0 auto 24px;
 }
 
-option-card {
+.option-card {
+    position: relative;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
     padding: 18px 10px;
-    border: 2px solid #dce4ee;
+    border: 3px solid #dce4ee;
     border-radius: 16px;
+    background: #ffffff;
     color: #263448;
     font-size: 1.05rem;
-    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-option.card:hover {
+.option-card.selected {
+    border-color: #1769aa;
+    background: #eaf4ff;
+    box-shadow: 0 0 0 4px rgb(23 105 170 / 20%);
+    transform: translateY(-2px);
+}
+
+.option-card.selected::after {
+    content: "✓";
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    display: grid;
+    width: 25px;
+    height: 25px;
+    place-items: center;
+    border-radius: 50%;
+    background: #1769aa;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.option-card:hover {
     border-color: #7ba5d2;
     transform: translateY(-2px);
 }
 
-.option-card:has {
+.option-card:has(input[type="radio"]:checked) {
     border-color: #1769aa;
     background: #eaf4ff;
+    box-shadow: 0 0 0 4px rgb(23 105 170 / 20%);
+    transform: translateY(-2px);
 }
 
-.option-card input {
+.option-card:has(input[type="radio"]:checked)::after {
+    content: "✓";
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    display: grid;
+    width: 25px;
+    height: 25px;
+    place-items: center;
+    border-radius: 50%;
+    background: #1769aa;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.option-card input[type="radio"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -118,14 +159,14 @@ option.card:hover {
     font-weight: bold;
     transition: background-color 0.2s, opacity 0.2s;
 }
+
 .submit-button:hover:not(:disabled) {
     background: #0e4f83;
 }
 
 .submit-button:disabled {
     cursor: not-allowed;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0.45;
 }
 
 .error-message {
@@ -167,7 +208,7 @@ option.card:hover {
 
     .option-card {
         padding: 14px 6px;
-        font-size: 0.95;
+        font-size: 0.95rem;
     }
 
     .emoji {

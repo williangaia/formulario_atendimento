@@ -32,7 +32,7 @@ async def submit_satisfaction(payload: SatisfactionRequest):
     # Adiconar persistência de dados
 
     return {
-        "sucess": True,
+        "success": True,
         "message": "Resposta recebida com sucesso!",
         "answer": payload.answer,
     }

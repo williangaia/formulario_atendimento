@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<hmtl lang="pt-BR">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
-    <title>PESQUISA DE SATISFAÇÃO</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pesquisa de satisfação</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/style.css') }}"
+    >
 </head>
 
 <body>
-    <main class="page-sell">
+    <main class="page-shell">
         <section class="survey-card" aria-live="polite">
-            <div class="brand-area brand-top" aria-label="Logo da Loja">
+            <div class="brand-area brand-top" aria-label="Logo da loja">
                 <img
-                src="{{ url_for('static', path='img/logo.png') }}"
-                alt="Logo da loja"
-                onerror="this.style.display='none'"
+                    src="{{ url_for('static', path='img/logo.png') }}"
+                    alt="Logo da loja"
+                    onerror="this.style.display='none'"
                 >
             </div>
 
@@ -28,44 +33,79 @@
                 </div>
 
                 <h1>Como foi sua experiência?</h1>
-                <p class="subtitle">Selecione uma das opções abaixo:</p>
+
+                <p class="subtitle">
+                    Selecione uma das opções abaixo:
+                </p>
 
                 <form id="satisfaction-form">
-                    <div class="options" role="radiogroup" aria-label="Avaliação de Experiência">
+                    <div
+                        class="options"
+                        role="radiogroup"
+                        aria-label="Avaliação da experiência"
+                    >
                         <label class="option-card">
-                            <input type="radio" name="answer" value="ruim">
+                            <input
+                                type="radio"
+                                name="answer"
+                                value="ruim"
+                            >
                             <span class="emoji" aria-hidden="true">😞</span>
                             <span>Ruim</span>
                         </label>
 
                         <label class="option-card">
-                            <input type="radio" name="answer" value="bom">
+                            <input
+                                type="radio"
+                                name="answer"
+                                value="bom"
+                            >
                             <span class="emoji" aria-hidden="true">🙂</span>
                             <span>Bom</span>
                         </label>
 
                         <label class="option-card">
-                            <input type="radio" name="answer" value="otimo">
+                            <input
+                                type="radio"
+                                name="answer"
+                                value="otimo"
+                            >
                             <span class="emoji" aria-hidden="true">🤩</span>
                             <span>Ótimo</span>
                         </label>
                     </div>
 
-                    <button id="submit-button" class="submit" type="submit" disabled>
-                        Enviar Resposta
+                    <button
+                        id="submit-button"
+                        class="submit-button"
+                        type="submit"
+                        disabled
+                    >
+                        Enviar resposta
                     </button>
                 </form>
 
-                <p id="error-message" class="error-message" role="alert"></p>
+                <p
+                    id="error-message"
+                    class="error-message"
+                    role="alert"
+                ></p>
             </div>
 
             <div id="thank-you-screen" class="screen" hidden>
-                <div class="thank-you-icon" aria-hidden="true">💚🤍🧡</div>
+                <div class="thank-you-icon" aria-hidden="true">
+                    💚🤍🧡
+                </div>
+
                 <h1>Obrigado pela sua resposta!</h1>
-                <p class="subtitle">Sua opnião é muito importante para nós.</p>
+
+                <p class="subtitle">
+                    Sua opinião é muito importante para nós.
+                </p>
             </div>
         </section>
     </main>
 
     <script src="{{ url_for('static', path='js/app.js') }}"></script>
 </body>
+</html>
