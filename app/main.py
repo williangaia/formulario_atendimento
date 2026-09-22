@@ -18,7 +18,7 @@ app.mount(
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 class SatisfactionRequest(BaseModel):
-    answer: str = Field(pattern="^(ruim|bom|otimo)$")
+    answer: str = Field(pattern="^(ruim|bom|excelente)$")
 
 @app.get("/")
 async def home(request: Request):

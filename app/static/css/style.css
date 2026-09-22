@@ -41,14 +41,15 @@ body {
 }
 
 .brand-area {
-    min-height: 56px;
+    min-height: 120px;
     display: grid;
     place-items: center;
 }
 
 .brand-area img {
-    max-width: 180px;
-    max-height: 90px;
+    width: min(100%, 280px);
+    max-width: 280px;
+    max-height: 130px;
     object-fit: contain;
 }
 
@@ -88,9 +89,9 @@ h1 {
 }
 
 .option-card.selected {
-    border-color: #1769aa;
+    border-color: #6faa17;
     background: #eaf4ff;
-    box-shadow: 0 0 0 4px rgb(23 105 170 / 20%);
+    box-shadow: 0 0 0 4px rgb(23 140 87 / 22%);
     transform: translateY(-2px);
 }
 
@@ -110,12 +111,12 @@ h1 {
 }
 
 .option-card:hover {
-    border-color: #7ba5d2;
+    border-color: #2db443;
     transform: translateY(-2px);
 }
 
 .option-card:has(input[type="radio"]:checked) {
-    border-color: #1769aa;
+    border-color: #0e8322;
     background: #eaf4ff;
     box-shadow: 0 0 0 4px rgb(23 105 170 / 20%);
     transform: translateY(-2px);
@@ -131,7 +132,7 @@ h1 {
     height: 25px;
     place-items: center;
     border-radius: 50%;
-    background: #1769aa;
+    background: #37aa17;
     color: #ffffff;
     font-weight: bold;
 }
@@ -152,7 +153,7 @@ h1 {
     padding: 15px 22px;
     border: 0;
     border-radius: 12px;
-    background: #1769aa;
+    background: #0e8322;
     color: #ffffff;
     cursor: pointer;
     font-size: 1rem;
@@ -161,7 +162,7 @@ h1 {
 }
 
 .submit-button:hover:not(:disabled) {
-    background: #0e4f83;
+    background: #3e5f0b;
 }
 
 .submit-button:disabled {
@@ -172,7 +173,7 @@ h1 {
 .error-message {
     min-height: 24px;
     margin: 16px 0 0;
-    color: #b42318;
+    color: #b47818;
 }
 
 .thank-you-icon {
@@ -181,18 +182,39 @@ h1 {
 
 .watermark {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     inset: 50% auto auto 50%;
-    width: 70%;
+    width: 78%;
     transform: translate(-50%, -50%);
-    opacity: 0.05;
+    opacity: 0.10;
     pointer-events: none;
 }
 
 .watermark img {
     width: 100%;
-    max-height: 260px;
+    max-height: 300px;
     object-fit: contain;
+}
+
+.countdown-message {
+    width: 100%;
+    margin: 150px 0 0;
+    padding-right: 8px;
+    text-align: right;
+    color: #5e6b7e;
+    font-size: 1rem;
+}
+
+.countdown-message strong {
+    display: inline-grid;
+    width: 34px;
+    height: 34px;
+    margin: 0 4px;
+    place-items: center;
+    border-radius: 50%;
+    background: #a0d01d;
+    color: #ffffff;
+    font-size: 1rem;
 }
 
 @media (max-width: 520px) {
@@ -200,6 +222,15 @@ h1 {
         min-height: 100vh;
         border-radius: 0;
         padding: 30px 18px;
+    }
+
+    .brand-area {
+        min-height: 100px;
+    }
+
+    .brand-area img {
+        max-width: 230px;
+        max-height: 110px;
     }
 
     .options {

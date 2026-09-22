@@ -9,6 +9,9 @@ const answerInputs = document.querySelectorAll(
     "input[name='answer']"
 );
 const optionCards = document.querySelectorAll(".option-card");
+const countdownElement = document.querySelector("#countdown");
+const COUNTDOWN_SECONDS = 8;
+let countdownInterval = null;
 
 if (
     !form ||
@@ -35,6 +38,43 @@ answerInputs.forEach((input) => {
     });
 });
 
+function resetForm() {
+    form.reset();
+
+    optionCards.forEach( (card) => {
+        card.classList.remove("selected");
+    });
+
+    thankYouScreen.hidden = true;
+    surveyScreen.hidden = false;
+
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar respsosta";
+
+    countdownElement.textContent = COUNTDOWN_SECONDS;
+}
+
+function startCountdown () {
+    let remainingSeconds = COUNTDOWN_SECONDS;
+
+    countdownElement.textContent = remainingSeconds;
+
+    if (countdownInterval !== null) {
+        window.clearInterval(countdownInterval);
+    }
+
+    countdownInterval = window.setInterval( () => {
+        remainingSeconds -= 1;
+        countdownElement.textContent = remainingSeconds;
+
+        if (remainingSeconds <= 0) {
+            window.clearInterval(countdownInterval);
+            countdownInterval = null;
+            resetForm();
+        }
+    }, 1000);
+}
+
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -57,6 +97,7 @@ form.addEventListener("submit", async (event) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json",
             },
             body: JSON.stringify({
                 answer: selected.value,
@@ -76,19 +117,7 @@ form.addEventListener("submit", async (event) => {
         surveyScreen.hidden = true;
         thankYouScreen.hidden = false;
 
-        window.setTimeout(() => {
-            form.reset();
-
-            optionCards.forEach((card) => {
-                card.classList.remove("selected");
-            });
-
-            thankYouScreen.hidden = true;
-            surveyScreen.hidden = false;
-
-            submitButton.disabled = true;
-            submitButton.textContent = "Enviar resposta";
-        }, 3000);
+        startCountdown();
     } catch (error) {
         console.error(error);
 
