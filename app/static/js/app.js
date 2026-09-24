@@ -49,7 +49,7 @@ function resetForm() {
     surveyScreen.hidden = false;
 
     submitButton.disabled = false;
-    submitButton.textContent = "Enviar respsosta";
+    submitButton.textContent = "Enviar resposta";
 
     countdownElement.textContent = COUNTDOWN_SECONDS;
 }

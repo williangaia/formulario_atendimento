@@ -6,6 +6,7 @@ dist/
 wheels/
 *.egg-info
 products_api/__pycache__
+heranca.py
 
 #Environment Variables
 .env
