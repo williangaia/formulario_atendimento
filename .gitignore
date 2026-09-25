@@ -1,12 +1,10 @@
 # Python-generated files
-app/__pycache__/
+**/__pycache__
 *.py[oc]
 build/
 dist/
 wheels/
 *.egg-info
-products_api/__pycache__
-heranca.py
 
 #Environment Variables
 .env
