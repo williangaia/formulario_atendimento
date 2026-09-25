@@ -12,7 +12,7 @@ class FormAnswers(Base):
 
     store_id: Mapped[int] = mapped_column(
         ForeignKey("stores.id", ondelete="RESTRICT"),
-        index=True;
+        index=True,
     )
 
     answers: Mapped[str] = mapped_column(String(20))
