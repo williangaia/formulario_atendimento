@@ -5,32 +5,34 @@ const submitButton = document.querySelector("#submit-button");
 const errorMessage = document.querySelector("#error-message");
 const surveyScreen = document.querySelector("#survey-screen");
 const thankYouScreen = document.querySelector("#thank-you-screen");
-const answerInputs = document.querySelectorAll(
-    "input[name='answer']"
-);
-const optionCards = document.querySelectorAll(".option-card");
 const countdownElement = document.querySelector("#countdown");
-const COUNTDOWN_SECONDS = 8;
-let countdownInterval = null;
+const answerInputs = document.querySelectorAll("input[name='answer']");
+const optionCards = document.querySelectorAll(".option-card");
 
 if (
     !form ||
     !submitButton ||
     !errorMessage ||
     !surveyScreen ||
-    !thankYouScreen
+    !thankYouScreen ||
+    !countdownElement
 ) {
     throw new Error(
         "Elementos obrigatórios do formulário não foram encontrados."
     );
 }
 
+const storeSlug = form.dataset.storeSlug;
+const COUNTDOWN_SECONDS = 8;
+let countdownInterval = null;
+
+if (!storeSlug) {
+    throw new Error("O atributo data-store-slug não foi encontrado.");
+}
+
 answerInputs.forEach((input) => {
     input.addEventListener("change", () => {
-        optionCards.forEach((card) => {
-            card.classList.remove("selected");
-        });
-
+        optionCards.forEach((card) => card.classList.remove("selected"));
         input.closest(".option-card").classList.add("selected");
 
         submitButton.disabled = false;
@@ -41,29 +43,26 @@ answerInputs.forEach((input) => {
 function resetForm() {
     form.reset();
 
-    optionCards.forEach( (card) => {
-        card.classList.remove("selected");
-    });
+    optionCards.forEach((card) => card.classList.remove("selected"));
 
     thankYouScreen.hidden = true;
     surveyScreen.hidden = false;
 
-    submitButton.disabled = false;
+    submitButton.disabled = true;
     submitButton.textContent = "Enviar resposta";
 
     countdownElement.textContent = COUNTDOWN_SECONDS;
 }
 
-function startCountdown () {
+function startCountdown() {
     let remainingSeconds = COUNTDOWN_SECONDS;
-
     countdownElement.textContent = remainingSeconds;
 
     if (countdownInterval !== null) {
         window.clearInterval(countdownInterval);
     }
 
-    countdownInterval = window.setInterval( () => {
+    countdownInterval = window.setInterval(() => {
         remainingSeconds -= 1;
         countdownElement.textContent = remainingSeconds;
 
@@ -78,13 +77,10 @@ function startCountdown () {
 form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const selected = document.querySelector(
-        "input[name='answer']:checked"
-    );
+    const selected = document.querySelector("input[name='answer']:checked");
 
     if (!selected) {
-        errorMessage.textContent =
-            "Selecione uma opção para continuar.";
+        errorMessage.textContent = "Selecione uma opção para continuar.";
         return;
     }
 
@@ -93,24 +89,20 @@ form.addEventListener("submit", async (event) => {
     errorMessage.textContent = "";
 
     try {
-        const response = await fetch("/api/satisfaction/", {
+        const response = await fetch(`/${storeSlug}/api/answer/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
             },
-            body: JSON.stringify({
-                answer: selected.value,
-            }),
+            body: JSON.stringify({ answer: selected.value }),
         });
 
         const data = await response.json();
 
         if (!response.ok || data.success !== true) {
             throw new Error(
-                data.detail ||
-                data.message ||
-                "Falha ao enviar a resposta."
+                data.detail || data.message || "Falha ao enviar a resposta."
             );
         }
 
@@ -121,9 +113,7 @@ form.addEventListener("submit", async (event) => {
     } catch (error) {
         console.error(error);
 
-        errorMessage.textContent =
-            "Não foi possível enviar. Tente novamente.";
-
+        errorMessage.textContent = "Não foi possível enviar. Tente novamente.";
         submitButton.disabled = false;
         submitButton.textContent = "Enviar resposta";
     }

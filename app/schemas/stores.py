@@ -8,7 +8,7 @@ class StoreSchema(BaseModel):
 
 class StorePublicSchema(BaseModel):
     id: int
-    nroemprsa: int
+    nroempresa: int
     slug: str
     name: str
     is_active: bool
