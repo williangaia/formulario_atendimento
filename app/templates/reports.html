@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<hmtl lanh="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+
+    <title>Baixar Respostas</title>
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='css/reports.css') }}"
+    >
+</head>
+<body>
+    <main class="reposts-page">
+        <section class="reports-card">
+            <h1>RESPOSTAS DO FORMULÁRIO</h1>
+
+            <p>
+                Escolha o Formato para baixar os dados.
+            </p>
+
+            <div class="reports-actions">
+                <a
+                    class="report-button csv-button"
+                    href="{{ url_for('download_csv') }}"
+                >
+                    Baixar CSV
+            </a>
+            <a
+                class="report-button xlsx-button"
+                href="{{ url_for('download_xlsx') }}"
+            >
+                Baixar XLSX (Excel)
+            </a>
+            </div>
+        </section>
+    </main>
+</body>
+</hmtl>

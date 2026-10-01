@@ -3,20 +3,25 @@ from pathlib import Path
 from fastapi import FastAPI, status
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import form_answer, stores
+from app.routers import form_answer, reports, stores
 
 BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(title="Formulário de Satissfação")
 
-@app.get("/health_check", status_code=status.HTTP_200_OK)
-async def health_check():
-    return {"status": "OK"}
-
 app.mount(
     "/static",
     StaticFiles(directory=BASE_DIR / "static"),
     name="static", 
+)
+
+@app.get("/health_check", status_code=status.HTTP_200_OK)
+async def health_check():
+    return {"status": "OK"}
+
+app.include_router(
+    router=reports.router,
+    tags=["reports"],
 )
 
 app.include_router(
