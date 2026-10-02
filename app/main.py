@@ -15,7 +15,11 @@ app.mount(
     name="static", 
 )
 
-@app.get("/health_check", status_code=status.HTTP_200_OK)
+@app.get(
+    path="/health_check",
+    status_code=status.HTTP_200_OK,
+    summary="Checar a saúde da aplicação"
+)
 async def health_check():
     return {"status": "OK"}
 
