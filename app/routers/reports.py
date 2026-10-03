@@ -1,6 +1,8 @@
 import csv
 import io
-from datetime import datetime
+from datetime import datetime, timezone
+import logging
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 from fastapi import APIRouter, Depends, Request, status
@@ -13,13 +15,28 @@ from app.models.form_answers import FormAnswers
 from app.models.stores import Store
 from app.templating import templates
 
+LOCAL_TZ = ZoneInfo("America/Sao_Paulo")
+
+logger = logging.getLogger(__name__)
+
+def to_local_time(value: datetime) -> datetime:
+    if value.tzinfo is None or value.utcoffset() is None:
+        logger.error (
+            "Campo created_at sem timezone!"
+            "O relatório exige um datetime timezone-aware!"
+            "Assumindo valor UTC e convertendo para TZ America/Sao_Paulo"
+        )
+        value = value.replace(tzinfo=timezone.utc)
+
+    return value.astimezone(LOCAL_TZ)
+
 router = APIRouter()
 
 def build_report_rows(rows):
     report_rows = []
 
     for answer, store in rows:
-        created_at = answer.created_at
+        created_at = to_local_time(answer.created_at)
 
         report_rows.append(
             {
